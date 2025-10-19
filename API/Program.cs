@@ -11,9 +11,18 @@ builder.Services.AddDbContext<Persistence.AppDbContext>(opt =>
     //in caso di db diversi, usare diverse connection string
 });
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+//Middleware per abilitare CORS
+app.UseCors(x =>
+    x.AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithOrigins("https://localhost:3000", "http://localhost:3000"));
+
 //Map controler server per appunto mappare i controller >
 //e usarli per le richieste http
 app.MapControllers();
